@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCMMS — Royal College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:     #05080F;
+  --blue:   #3B6EF8;
+  --violet: #7B5CF6;
+  --text:   #E8ECFF;
+  --muted:  #5A6280;
+  --dim:    #1C2040;
+}
+
+html, body { height: 100%; background: var(--bg); font-family: 'Inter', sans-serif; overflow: hidden; }
+
+/* outer frame */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 16px;
+  border: 1px solid rgba(80, 60, 200, 0.35);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: inset 0 0 80px rgba(40, 30, 140, 0.1);
+}
+
+/* bg */
+.bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 52%, rgba(30, 45, 160, 0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 30% 70%, rgba(100, 60, 220, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 25% at 75% 25%, rgba(40, 80, 200, 0.1) 0%, transparent 55%);
+}
+.bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(90,110,240,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,110,240,0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 52%, black 0%, transparent 72%);
+}
+
+/* layout */
+.stage {
+  position: relative; z-index: 2;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  place-items: center;
+  padding: 2.5rem;
+}
+
+/* top section */
+.top {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding-bottom: 3.2rem;
+  opacity: 0;
+  animation: up 0.8s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+}
+
+.crest-wrap {
+  margin-bottom: 1.4rem;
+}
+.crest {
+  width: 110px; height: 110px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(140,120,255,0.35));
+}
+
+.sys-id {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.55rem;
+  background: linear-gradient(135deg, #ffffff 0%, #aab4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sys-full {
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* center: circle button */
+.btn-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: scalein 0.9s cubic-bezier(0.22,1,0.36,1) 0.35s forwards;
+}
+
+.btn-launch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3352d0 0%, #5b3ff0 60%, #7b5cf6 100%);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+  box-shadow:
+    0 0 0 1px rgba(120,100,250,0.5),
+    0 0 60px rgba(80, 60, 220, 0.45),
+    0 20px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* spinning dashed ring */
+.btn-launch::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed rgba(120,100,250,0.35);
+  animation: spin 12s linear infinite;
+}
+
+/* static outer glow ring */
+.btn-launch::after {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  border: 1px solid rgba(80,60,200,0.15);
+}
+
+.btn-launch:hover {
+  transform: scale(1.07);
+  box-shadow:
+    0 0 0 1px rgba(150,130,255,0.7),
+    0 0 90px rgba(100, 70, 250, 0.65),
+    0 24px 70px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-launch:active { transform: scale(0.97); }
+
+.btn-arrow {
+  width: 28px; height: 28px;
+  margin-bottom: 0.5rem;
+  stroke: rgba(255,255,255,0.9);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+.btn-launch:hover .btn-arrow { transform: translateX(3px); }
+
+.btn-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+}
+
+/* bottom: powered by */
+.bottom {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3.2rem;
+  gap: 1rem;
+  opacity: 0;
+  animation: up 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+}
+
+.powered-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.powered-org {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-align: center;
+  background: linear-gradient(135deg, #c0caff 0%, #7b8fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: rgba(90,98,128,0.7);
+}
+.footer-row span { color: rgba(50,55,90,0.8); }
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scalein {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="stage">
+
+  <div class="top">
+    <div class="crest-wrap">
+      <img class="crest" src="https://gearup.rccsonline.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FRoyal_College_Logo.fd88ae64.png&w=750&q=75" alt="Royal College Crest">
+    </div>
+    <h1 class="sys-id">Member Management System</h1>
+    <p class="sys-full">For Clubs & Societies at Royal College</p>
+  </div>
+
+  <div class="btn-wrap">
+    <a class="btn-launch" href="https://mms.royalcollege.lk" target="_blank">
+      <svg class="btn-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+      <span class="btn-label">Launch</span>
+    </a>
+  </div>
+
+  <div class="bottom">
+    <p class="powered-label">Powered by</p>
+    <p class="powered-org">Royal College Computer Society</p>
+    <div class="footer-row">
+      Students <span>·</span> Teachers <span>·</span> Clubs <span>·</span> Administration
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
