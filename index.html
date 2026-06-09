@@ -84,11 +84,12 @@ body::before {
 
 .sys-id {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-size: clamp(2.4rem, 6vw, 5rem);
   font-weight: 800;
   letter-spacing: 0.12em;
   color: var(--text);
-  line-height: 1;
+  line-height: 1.1;
+  text-align: center;
   margin-bottom: 0.55rem;
   background: linear-gradient(135deg, #ffffff 0%, #aab4ff 100%);
   -webkit-background-clip: text;
@@ -97,10 +98,11 @@ body::before {
 }
 
 .sys-full {
-  font-size: 0.8rem;
+  font-size: clamp(0.8rem, 1.5vw, 1.2rem);
   font-weight: 300;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-align: center;
   color: var(--muted);
 }
 
@@ -197,7 +199,7 @@ body::before {
 }
 
 .powered-label {
-  font-size: 0.6rem;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted);
@@ -206,7 +208,7 @@ body::before {
 
 .powered-org {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--text);
@@ -220,8 +222,10 @@ body::before {
 .footer-row {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  font-size: 0.68rem;
+  font-size: clamp(0.68rem, 1.2vw, 0.9rem);
   color: rgba(90,98,128,0.7);
 }
 .footer-row span { color: rgba(50,55,90,0.8); }
@@ -255,7 +259,7 @@ body::before {
   </div>
 
   <div class="btn-wrap">
-    <a class="btn-launch" href="https://mms.royalcollege.lk" target="_blank">
+    <a class="btn-launch" href="https://mms.royalcollege.lk/counter" target="_blank">
       <svg class="btn-arrow" viewBox="0 0 24 24">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
@@ -264,7 +268,7 @@ body::before {
   </div>
 
   <div class="bottom">
-    <p class="powered-label">Powered by</p>
+    <p class="powered-label">Created by</p>
     <p class="powered-org">Royal College Computer Society</p>
     <div class="footer-row">
       Students <span>·</span> Teachers <span>·</span> Clubs <span>·</span> Administration
